@@ -21,10 +21,11 @@ namespace iptest
         public string IP { get; set;}
         public bool IsVirtual { get; set; }
         public bool IsPP { get; set; }
+        public bool IsActive { get; set; }
 
-        public override string ToString()
+       public override string ToString()
         {
-            return string.Format("[IPStuff: Name={0}, IsUp={1}, IP={2}, IsVirtual={3}, IsPP={4}]", Name, IsUp, IP, IsVirtual, IsPP);
+            return string.Format("[IPStuff: Name={0}, IsUp={1}, IP={2}, IsVirtual={3}, IsPP={4}, IsActive={5}]", Name, IsUp, IP, IsVirtual, IsPP, IsActive);
         }
 
     }
@@ -130,9 +131,9 @@ namespace iptest
 
             var wlan = stuff.FirstOrDefault(ip => !string.IsNullOrWhiteSpace(ip.Name) && !string.IsNullOrWhiteSpace(link.InterfaceName) && ip.Name == link.InterfaceName.ToLower());
 
-            wlan = stuff.FirstOrDefault(ip => ip.Name.Contains("wlan0"));
+            if(wlan != null)
+                wlan.IsActive = true;
 
-            wlan = stuff.FirstOrDefault(ip => ip.Name.Contains("wlan"));
            
             return stuff;
         }
